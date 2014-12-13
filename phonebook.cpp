@@ -34,7 +34,8 @@ int main(){
 			   //Добавить телефон
 			   cout << "Введите номер телефона: \n";
 			   cin >> number;
-			   cout << "Вы ввели - " << *(addPhone(phonebook, size, number) + size) << "\n";
+			   addPhone(phonebook,size,number);
+			   printPhone(phonebook, size);
 
 	}
 	case 3:{
@@ -98,8 +99,10 @@ int *addPhone(int *phonebook, int size, int number){
 	}
 	tempAddPhone[size] = number;
 	delete[] phonebook;
-	phonebook = new int[size + 1];
-	return tempAddPhone;
+	phonebook = tempAddPhone;
+	phonebook[size] = number;
+	delete[] tempAddPhone;
+	return phonebook;
 }
 
 int *changePhone(int *phonebook, int size, int index, int number){
