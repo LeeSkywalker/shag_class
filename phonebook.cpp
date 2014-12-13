@@ -24,30 +24,42 @@ int main(){
 	cin >> oper;
 	switch (oper){
 	case 1:{
+			   //Найти телефон в справочнике
 			   cout << "Введите номер телефона: \n";
 			   cin >> number;
 			   cout << "Телефон под номером " << findPhone(phonebook, size, number) << "\n";
 			   break;
 	}
 	case 2:{
+			   //Добавить телефон
 			   cout << "Введите номер телефона: \n";
 			   cin >> number;
 			   cout << "Вы ввели - " << *(addPhone(phonebook, size, number) + size) << "\n";
 
 	}
 	case 3:{
+
+			   //Изменить телефон
 			   cout << "Введите номер который хотите изменить: \n";
 			   cin >> number;
 			   int index = findPhone(phonebook, size, number);
+			   while(index==0) {
+				   cout << "В справочнике нет данного номера. Введите другой. \n";
+				   cin >> number;
+				   index = findPhone(phonebook, size, number);
+			   }
+			   cout << index << "\n";
 			   cout << "Введите новый номер телефона: \n";
 			   cin >> number;
 			   changePhone(phonebook, size, index, number);
 			   printPhone(phonebook, size);
 	}
 	case 4: {
+				//Удалить телефон из справочника
 
 	}
 	case 5: {
+				//Выйти из программы
 				break;
 	}
 	default:{
@@ -59,7 +71,9 @@ int main(){
 void helloUser(){
 	cout << "\t Телефонный справочник: \n";
 	cout << "Введите желаемую операцию. \n";
-	cout << "1. ---Узнать телефон. \n 2. ---Добавить телефон. \n 3. ---Изменить телефон. \n";
+	cout << "1. ---Узнать телефон. \n";
+	cout << "2. ---Добавить телефон. \n";
+	cout << "3. --- Изменить телефон. \n";
 	cout << "4. ---Удалить телефон из справочника. \n";
 	cout << "5. ---Выйти из программы. \n";
 }
@@ -69,10 +83,10 @@ int findPhone(int *phonebook, int size, int number){
 	for (int i = 0; i < size; i++){
 		if (phonebook[i] == number){
 			index = i + 1;
-			break;
+			return index;
 		}
 	}
-	return index;
+	return 0;
 }
 
 int *addPhone(int *phonebook, int size, int number){
@@ -90,12 +104,12 @@ int *addPhone(int *phonebook, int size, int number){
 
 int *changePhone(int *phonebook, int size, int index, int number){
 	for (int i = 0; i < size; i++){
-		if (i == index){
-			phonebook[i + 1] = number;
-			break;
+		if (i == index-1){
+			phonebook[i] = number;
+			return phonebook;
 		}
 	}
-	return phonebook;
+	return 0;
 }
 
 int deletePhone(){
