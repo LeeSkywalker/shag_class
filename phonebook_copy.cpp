@@ -34,10 +34,8 @@ int main(){
 			   //Добавить телефон
 			   cout << "Введите номер телефона: \n";
 			   cin >> number;
-			   addPhone(phonebook, size, number);
+			   addPhone(phonebook,size,number);
 			   printPhone(phonebook, size);
-			   cout << phonebook << "\n";
-			   break;
 
 	}
 	case 3:{
@@ -46,7 +44,7 @@ int main(){
 			   cout << "Введите номер который хотите изменить: \n";
 			   cin >> number;
 			   int index = findPhone(phonebook, size, number);
-			   while (index == 0) {
+			   while(index==0) {
 				   cout << "В справочнике нет данного номера. Введите другой. \n";
 				   cin >> number;
 				   index = findPhone(phonebook, size, number);
@@ -93,26 +91,23 @@ int findPhone(int *phonebook, int size, int number){
 }
 
 int *addPhone(int *phonebook, int size, int number){
+
 	int *tempAddPhone = new int[size + 1];
 	for (int i = 0; i < size; i++){
-	  tempAddPhone[i] = *(phonebook+i);
+		tempAddPhone[i] = phonebook[i];
 
 	}
-
+	tempAddPhone[size] = number;
 	delete[] phonebook;
 	phonebook = tempAddPhone;
 	phonebook[size] = number;
-	cout << "Массив: " << endl;
-	for (int i = 0; i < size + 1; i++) {
-		cout << phonebook[i] << " ";
-	}
-	//delete[] tempAddPhone;
+	delete[] tempAddPhone;
 	return phonebook;
 }
 
 int *changePhone(int *phonebook, int size, int index, int number){
 	for (int i = 0; i < size; i++){
-		if (i == index - 1){
+		if (i == index-1){
 			phonebook[i] = number;
 			return phonebook;
 		}
@@ -126,7 +121,7 @@ int deletePhone(){
 
 void* printPhone(int *phonebook, int size){
 	for (int i = 0; i < size; i++){
-		cout << *(phonebook+i) << " ";
+		cout << phonebook[i] << " ";
 	}
 	return 0;
 }
